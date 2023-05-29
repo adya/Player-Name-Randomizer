@@ -2,6 +2,7 @@
 
 #include "Randomizer.h"
 #include "LookupNameDefinitions.h"
+#include "UI.h"
 
 namespace PNR
 {
@@ -19,8 +20,8 @@ namespace PNR
 			if (const auto name = Randomizer::Manager::GetSingleton()->MakeName(); name != empty) {
 				if (const auto raceMenu = RE::UI::GetSingleton()->GetMovieView("RaceSex Menu").get(); raceMenu) {
 					// Increase the limit of chars to allow longer names.
-					raceMenu->SetVariable("_root.RaceSexMenuBaseInstance.RaceSexPanelsInstance.NameEntryInstance.TextInputInstance.maxChars", 50);
-					raceMenu->SetVariable("_root.RaceSexMenuBaseInstance.RaceSexPanelsInstance.NameEntryInstance.TextInputInstance.text", name.data(), RE::GFxMovie::SetVarType::kNormal);
+					raceMenu->SetVariable(UI::maxChars.data(), 50);
+					raceMenu->SetVariable(UI::text.data(), name.data(), RE::GFxMovie::SetVarType::kNormal);
 				} else {
 					logger::error("Failed to set a name.");
 				}

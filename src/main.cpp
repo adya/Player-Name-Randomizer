@@ -1,4 +1,4 @@
-#include "Distributor.h"
+#include "UI.h"
 #include "Hotkeys.h"
 #include "LookupNameDefinitions.h"
 #include "Options.h"
@@ -8,6 +8,7 @@ void MessageHandler(SKSE::MessagingInterface::Message* a_message) {
 	switch (a_message->type) {
 	case SKSE::MessagingInterface::kPostLoad:
 		PNR::LoadNameDefinitions();
+		PNR::UI::DetectRaceMenu();
 		break;
 	case SKSE::MessagingInterface::kDataLoaded:
 		PNR::Options::Load();

@@ -7,4 +7,5 @@ set(headers ${headers}
 	include/NameDefinitionDecoder.h
 	include/Options.h
 	include/LookupNameDefinitions.h
+	include/UI.h
 )
