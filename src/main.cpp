@@ -1,7 +1,7 @@
-#include "UI.h"
 #include "Hotkeys.h"
 #include "LookupNameDefinitions.h"
 #include "Options.h"
+#include "UI.h"
 
 // ReSharper disable once CppParameterMayBeConstPtrOrRef
 void MessageHandler(SKSE::MessagingInterface::Message* a_message) {

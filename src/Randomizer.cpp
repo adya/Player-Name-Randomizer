@@ -48,17 +48,16 @@ namespace PNR
 				for (auto& mapping : Options::General::mapping.at(race->formID)) {
 					const auto& name = mapping.nameDefinition;
 					const auto  chance = actor->GetActorBase()->GetSex() == RE::SEX::kMale ? mapping.maleChance : mapping.femaleChance;
-					if (loadedDefinitions.contains(name) && (chance >= 100 || rng.Generate(0, 100) < chance )) {
+					if (loadedDefinitions.contains(name) && (chance >= 100 || rng.Generate(0, 100) < chance)) {
 						const auto& definition = loadedDefinitions.at(name);
 						definitions.emplace_back(definition);
 					}
 				}
-			
+
 				if (definitions.empty()) {
 					return std::nullopt;
 				}
 
-				
 				logger::info("\tRace: [0x{:X}] '{}'", race->formID, race->GetName());
 				logger::info("\tSex: {}", actor->GetActorBase()->GetSex() == RE::SEX::kMale ? "Male" : "Female");
 

@@ -1,8 +1,8 @@
 #include "Options.h"
 
 #include "CLIBUtil/distribution.hpp"
-#include "CLIBUtil/simpleINI.hpp"
 #include "CLIBUtil/hotkeys.hpp"
+#include "CLIBUtil/simpleINI.hpp"
 #include "Hotkeys.h"
 #include "LookupNameDefinitions.h"
 
@@ -22,8 +22,8 @@ namespace PNR
 		}
 
 		void Map(const RE::TESRace* race, std::string_view key, std::string_view entry) {
-			const std::string          str(entry);
-			const auto                 rawDefinitions = clib_util::string::split(str, ","sv);
+			const std::string             str(entry);
+			const auto                    rawDefinitions = clib_util::string::split(str, ","sv);
 			std::vector<General::Mapping> mappings;
 
 			for (auto& rawDefinition : rawDefinitions) {
@@ -31,15 +31,14 @@ namespace PNR
 					continue;
 
 				General::Mapping mapping{};
-				auto components = clib_util::string::split(rawDefinition, "@");
+				auto             components = clib_util::string::split(rawDefinition, "@");
 				mapping.nameDefinition = components[0];
 				if (!loadedDefinitions.contains(mapping.nameDefinition)) {
 					logger::warn("'{} = {}' mapping will be skipped: '{}' Name Definition was not found.", key, entry, mapping.nameDefinition);
 					return;
 				}
 
-				if (components.size() > 1)
-				{
+				if (components.size() > 1) {
 					auto& rawChances = components[1];
 					auto  chances = clib_util::string::split(rawChances, "|");
 

@@ -5,6 +5,6 @@ set(sources ${sources}
 	src/main.cpp
 	src/Options.cpp
 	src/NameDefinitionDecoder.cpp
-	src/Randomizer.cpp
 	src/NameDefinition.cpp
+	src/Randomizer.cpp
 )
