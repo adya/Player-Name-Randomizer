@@ -5,7 +5,6 @@ namespace PNR
 {
 	namespace Randomizer
 	{
-
 		class Manager
 		{
 		public:
@@ -15,7 +14,7 @@ namespace PNR
 			}
 
 			Name MakeName() const;
-		
+
 		private:
 			// Singleton stuff :)
 			Manager() = default;

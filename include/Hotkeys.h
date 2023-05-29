@@ -19,9 +19,10 @@ namespace PNR
 
 			static void GenerateTrigger(const KeyCombination*);
 			static void ReloadSettingsTrigger(const KeyCombination*);
-		
+
 			KeyCombination generate{ GenerateTrigger };
 			KeyCombination reloadSettings{ ReloadSettingsTrigger };
+
 		protected:
 			RE::BSEventNotifyControl ProcessEvent(RE::InputEvent* const* a_event, RE::BSTEventSource<RE::InputEvent*>* a_eventSource) override;
 

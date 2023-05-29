@@ -1,7 +1,7 @@
 #include "Hotkeys.h"
 
-#include "Randomizer.h"
 #include "LookupNameDefinitions.h"
+#include "Randomizer.h"
 #include "UI.h"
 
 namespace PNR
@@ -44,7 +44,7 @@ namespace PNR
 				return Result::kContinue;
 
 			const auto ui = RE::UI::GetSingleton();
-			
+
 			if (!ui->IsMenuOpen("RaceSex Menu")) {
 				return Result::kContinue;
 			}
