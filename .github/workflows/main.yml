@@ -23,3 +23,5 @@ jobs:
       FOMOD_MOD_AUTHOR: "sasnikol"
       FOMOD_MOD_NEXUS_ID: "92438"
       FOMOD_DEFAULT_IMAGE: "FOMOD/images/cover.png"
+    secrets:
+      GIT_SSH_KEY: ${{ secrets.DEPLOY_KEY }}
