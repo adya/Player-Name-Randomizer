@@ -6,3 +6,6 @@
 	path = extern/CLibUtil
 	url = https://github.com/powerof3/CLibUtil
 	branch = master
+[submodule "extern/CommonLibVR"]
+	path = extern/CommonLibVR
+	url = https://github.com/alandtse/CommonLibVR
