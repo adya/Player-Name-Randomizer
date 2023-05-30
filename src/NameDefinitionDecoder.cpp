@@ -172,7 +172,7 @@ namespace PNR
 	NameDefinition NameDefinitionDecoder::decode(const std::filesystem::path& a_path) const {
 		std::ifstream f(a_path);
 		const json    data = nlohmann::json::parse(f);
-		;
+		
 		f.close();
 		NameDefinition definition{};
 		convert::from_json(data, definition);
