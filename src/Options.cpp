@@ -10,7 +10,7 @@ namespace PNR
 {
 	namespace Options
 	{
-		bool ReadHotkey(const CSimpleIniA& ini, const char* name, std::string_view& pattern, clib_util::hotkeys::KeyCombination& hotkey) {
+		bool ReadHotkey(const CSimpleIniA& ini, const char* name, std::string& pattern, clib_util::hotkeys::KeyCombination& hotkey) {
 			if (const auto rawPattern = ini.GetValue("Hotkeys", name)) {
 				if (hotkey.SetPattern(rawPattern)) {
 					pattern = rawPattern;

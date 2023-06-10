@@ -16,7 +16,8 @@ jobs:
     with:
       CMAKE_SE_BUILD_PRESET: 'vs2022-windows-vcpkg-se'
       CMAKE_AE_BUILD_PRESET: 'vs2022-windows-vcpkg-ae'
-      CMAKE_VR_BUILD_PRESET: 'vs2022-windows-vcpkg-vr'
+      CMAKE_VR_BUILD_PRESET: ''
+      CMAKE_VR_CONFIG_PRESET: ''
       FOMOD_INCLUDE_PDB: true
       FOMOD_REQUIRED_INSTALLATION_DIR: "FOMOD/Required Files"
       FOMOD_MOD_NAME: "Player Name Randomizer"

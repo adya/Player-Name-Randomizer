@@ -18,8 +18,8 @@ namespace PNR
 
 		namespace Hotkeys
 		{
-			inline std::string_view generate = "Insert"sv;
-			inline std::string_view reloadSettings = "RCtrl+L"sv;
+			inline std::string generate = "Insert";
+			inline std::string reloadSettings = "RCtrl+L";
 		}
 
 		void Load();
