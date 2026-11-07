@@ -18,43 +18,26 @@ macro(set_from_environment VARIABLE)
 	endif ()
 endmacro()
 
-macro(find_commonlib_path)
-	if (CommonLibName AND NOT ${CommonLibName} STREQUAL "")
-		# Check extern
-		find_path(CommonLibPath
-		include/REL/Relocation.h
-		PATHS extern/${CommonLibName})
-		if (${CommonLibPath} STREQUAL "CommonLibPath-NOTFOUND")
-			#Check path
-			set_from_environment(${CommonLibName}Path)
-			set(CommonLibPath ${${CommonLibName}Path})
-		endif()
-	endif()
-endmacro()
-
+set(CommonLibName "CommonLibSSE")
+set(CommonLibPath "${CMAKE_CURRENT_SOURCE_DIR}/extern/CommonLibSSE")
 set_from_environment(VCPKG_ROOT)
 if(BUILD_SKYRIMAE)
 	add_compile_definitions(SKYRIM_AE)
-	add_compile_definitions(SKYRIM_SUPPORT_AE)
-	set(CommonLibName "CommonLibSSE")
 	set_from_environment(SkyrimAEPath)
 	set(SkyrimPath ${SkyrimAEPath})
 	set(SkyrimVersion "Skyrim AE")
 	set(VERSION ${VERSION}.${AE_VERSION})
 elseif(BUILD_SKYRIMVR)
 	add_compile_definitions(SKYRIMVR)
-	set(CommonLibName "CommonLibVR")
 	set_from_environment(SkyrimVRPath)
 	set(SkyrimPath ${SkyrimVRPath})
 	set(SkyrimVersion "Skyrim VR")
 	set(VERSION ${VERSION}.${VR_VERSION})
 else()
-	set(CommonLibName "CommonLibSSE")
 	set_from_environment(Skyrim64Path)
 	set(SkyrimPath ${Skyrim64Path})
 	set(SkyrimVersion "Skyrim SSE")
 endif()
-find_commonlib_path()
 message(
 	STATUS
 	"Building ${NAME} ${VERSION} for ${SkyrimVersion} at ${SkyrimPath} with ${CommonLibName} at ${CommonLibPath}."
@@ -70,7 +53,6 @@ else ()
 	)
 endif ()
 
-set(Boost_USE_STATIC_RUNTIME OFF CACHE BOOL "")
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>" CACHE STRING "")
 
 # ---- Project ----
@@ -104,10 +86,6 @@ endif()
 
 # ---- Globals ----
 
-add_compile_definitions(
-	SKSE_SUPPORT_XBYAK
-)
-
 if (MSVC)
 	if (NOT ${CMAKE_GENERATOR} STREQUAL "Ninja")
 		add_compile_options(
@@ -119,26 +97,36 @@ endif ()
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_DEBUG OFF)
 
-set(Boost_USE_STATIC_LIBS ON)
-
 # ---- Dependencies ----
 
-if (DEFINED CommonLibPath AND NOT ${CommonLibPath} STREQUAL "" AND IS_DIRECTORY ${CommonLibPath})
-	add_subdirectory(${CommonLibPath} ${CommonLibName})
+set(BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(SKSE_SUPPORT_XBYAK ON CACHE BOOL "" FORCE)
+set(ENABLE_SKYRIM_SE ON CACHE BOOL "" FORCE)
+set(ENABLE_SKYRIM_AE ON CACHE BOOL "" FORCE)
+set(ENABLE_SKYRIM_VR ON CACHE BOOL "" FORCE)
+
+if (IS_DIRECTORY "${CommonLibPath}" AND EXISTS "${CommonLibPath}/CMakeLists.txt")
+	add_subdirectory("${CommonLibPath}" ${CommonLibName})
 else ()
 	message(
 		FATAL_ERROR
-		"Variable ${CommonLibName}Path is not set or in extern/."
+		"CommonLibSSE-NG submodule is missing. Run git submodule update --init --recursive."
 	)
 endif()
 
-set(CLIB_UTIL_INCLUDE_DIRS "extern/CLibUtil/include")
+set(CLIB_UTIL_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/extern/CLibUtil/include")
+if (NOT IS_DIRECTORY "${CLIB_UTIL_INCLUDE_DIR}")
+	message(
+		FATAL_ERROR
+		"CLibUtil submodule is missing. Run git submodule update --init --recursive."
+	)
+endif ()
+include_directories("${CLIB_UTIL_INCLUDE_DIR}")
 
 # ---- Add source files ----
 
 include(cmake/headerlist.cmake)
 include(cmake/sourcelist.cmake)
-include_directories(${PROJECT_SOURCE_DIR}/${CLIB_UTIL_INCLUDE_DIRS})
 
 source_group(
 	TREE
@@ -178,6 +166,7 @@ target_compile_definitions(
 	${PROJECT_NAME}
 	PRIVATE
 		_UNICODE
+		NOMINMAX
 )
 
 target_include_directories(
