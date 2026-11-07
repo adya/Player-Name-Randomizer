@@ -24,10 +24,7 @@
     {
       "name": "vcpkg",
       "hidden": true,
-      "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
-      "cacheVariables": {
-        "VCPKG_OVERLAY_PORTS": "${sourceDir}/cmake/ports/"
-      }
+      "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
     },
     {
       "name": "windows",
@@ -42,6 +39,12 @@
       "hidden": true,
       "generator": "Visual Studio 17 2022",
       "toolset": "v143"
+    },
+    {
+      "name": "vs2026",
+      "hidden": true,
+      "generator": "Visual Studio 18 2026",
+      "toolset": "v145"
     },
     {
       "name": "se",
@@ -85,6 +88,16 @@
       ]
     },
     {
+      "name": "vs2026-windows-vcpkg-ae",
+      "inherits": [
+        "cmake-dev",
+        "vcpkg",
+        "windows",
+        "vs2026",
+        "ae"
+      ]
+    },
+    {
       "name": "vs2022-windows-vcpkg-vr",
       "inherits": [
         "cmake-dev",
@@ -99,6 +112,11 @@
     {
       "name": "vs2022-windows-vcpkg-ae",
       "configurePreset": "vs2022-windows-vcpkg-ae",
+      "configuration": "Release"
+    },
+    {
+      "name": "vs2026-windows-vcpkg-ae",
+      "configurePreset": "vs2026-windows-vcpkg-ae",
       "configuration": "Release"
     },
     {

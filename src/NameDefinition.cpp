@@ -122,8 +122,8 @@ namespace PNR
 	}
 
 	std::pair<NameRef, NameIndex> NameDefinition::BaseNamesContainer::GetRandom(NameIndex maxIndex) const {
-		if (!IsDisabled() && (IsStatic() || chance > staticRNG.Generate<uint32_t>(0, 100))) {
-			auto  index = staticRNG.Generate<NameIndex>(0, std::min(maxIndex, GetSize() - 1));
+		if (!IsDisabled() && (IsStatic() || chance > staticRNG.generate<uint32_t>(0, 100))) {
+			auto  index = staticRNG.generate<NameIndex>(0, std::min(maxIndex, GetSize() - 1));
 			auto& newName = names.at(index);
 			return { newName, index };
 		}
@@ -142,7 +142,7 @@ namespace PNR
 
 	NameRef NameDefinition::Conjunctions::GetRandom(const RE::SEX sex) const {
 		if (auto& list = GetList(sex); !list.empty()) {
-			auto& newName = list.at(staticRNG.Generate<NameIndex>(0, list.size() - 1));
+			auto& newName = list.at(staticRNG.generate<NameIndex>(0, list.size() - 1));
 			return newName;
 		}
 		return empty;
