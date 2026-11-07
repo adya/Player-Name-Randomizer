@@ -10,7 +10,7 @@ namespace PNR
 			const auto prefix = variant.prefix.names.size();
 			const auto suffix = variant.suffix.names.size();
 			if (useCircumfix) {
-				const auto circumfix = min(prefix, suffix);
+				const auto circumfix = std::min(prefix, suffix);
 				if (circumfix > 0) {
 					const auto trimmedPrefixes = prefix - circumfix;
 					const auto trimmedSuffixes = suffix - circumfix;
@@ -40,7 +40,7 @@ namespace PNR
 
 		logger::info("\t{} Names:", name);
 		if (inherits) {
-			logger::info("\t\tInherits from the next Name Definition", name);
+			logger::info("\t\tInherits from the next Name Definition");
 			if (namePart.IsStatic() && !namePart.IsEmpty()) {
 				logger::warn("\t\tWARN: Redundant inheritance, since {} Name will always be produced by this Name Definition", name);
 			}
@@ -73,7 +73,8 @@ namespace PNR
 
 	bool LoadNameDefinitions() {
 		logger::info("{:*^30}", "NAME DEFINITIONS");
-		const auto files = clib_util::distribution::get_configs_paths(R"(Data\SKSE\Plugins\NPCsNamesDistributor)", ".json"sv);
+		const auto files = clib_util::distribution::get_configs_paths(
+			std::filesystem::path(R"(Data\SKSE\Plugins\NPCsNamesDistributor)"), ""sv, ".json"sv);
 
 		if (files.empty()) {
 			logger::info("No Name Definition files found. NPCsNamesDistributor will be disabled.");

@@ -59,7 +59,7 @@ namespace PNR
 
 		Manager::Manager() {
 			if (!generate.SetPattern(Options::Hotkeys::generate))
-				logger::error("Failed to set Key Combination for generate", Options::Hotkeys::generate);
+				logger::error("Failed to set Key Combination for generate '{}'", Options::Hotkeys::generate);
 			if (!reloadSettings.SetPattern(Options::Hotkeys::reloadSettings))
 				logger::error("Failed to set Key Combination '{}' for reloadSettings", Options::Hotkeys::reloadSettings);
 		}

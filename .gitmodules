@@ -1,11 +1,8 @@
 [submodule "extern/CommonLibSSE"]
 	path = extern/CommonLibSSE
-	url = https://github.com/powerof3/CommonLibSSE
-	branch = dev
+	url = https://github.com/alandtse/CommonLibSSE-NG
+	branch = ng
 [submodule "extern/CLibUtil"]
 	path = extern/CLibUtil
 	url = https://github.com/powerof3/CLibUtil
 	branch = master
-[submodule "extern/CommonLibVR"]
-	path = extern/CommonLibVR
-	url = https://github.com/alandtse/CommonLibVR
